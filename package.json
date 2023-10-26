@@ -1,0 +1,21 @@
+{
+  "name": "second-task",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx playwright test",
+    "test-with-ui": "npx playwright test --ui",
+    "generate-allure-report": "npx allure generate ./playwright-report --clean",
+    "open-allure-report": "npx allure open ./playwright-report"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.39.0",
+    "@types/node": "^20.8.8",
+    "allure-commandline": "^2.24.1",
+    "allure-playwright": "^2.9.2"
+  }
+}
