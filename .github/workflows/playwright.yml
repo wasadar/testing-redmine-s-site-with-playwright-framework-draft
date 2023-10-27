@@ -32,7 +32,7 @@ jobs:
       run: npx playwright install --with-deps
 
     - name: Run Playwright tests
-      run: npm run test
+      run: npm run test --ignore-https-errors
 
     - name: Generate Allure report
       run: npm run generate-allure-report
