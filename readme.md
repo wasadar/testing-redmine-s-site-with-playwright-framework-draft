@@ -78,7 +78,6 @@ Please make sure you have the necessary dependencies installed and the environme
     ```
     - This will install the necessary browsers (Chromium, Firefox, and WebKit) for your tests on Windows.
 ### For Linux
-## Installation (for Linux)
 1. Make sure Node.js is installed:
     - If you don't have Node.js installed, you can use the following commands to install it on Linux:
     ```
