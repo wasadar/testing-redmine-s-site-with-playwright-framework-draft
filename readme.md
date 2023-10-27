@@ -61,7 +61,7 @@ Please make sure you have the necessary dependencies installed and the environme
 
 4. Navigate to the project directory.
     ```
-    cd second-task
+    cd testing-redmine-s-site-with-playwright-framework
     ```
 
 5. Install the required dependencies.
