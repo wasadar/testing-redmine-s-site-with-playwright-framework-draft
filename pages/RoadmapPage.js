@@ -9,6 +9,6 @@ class RoadmapPage {
     }
 
     async gotoRoadmapPage() {
-        await this.page.goto("http://www.redmine.org/projects/redmine/roadmap");
+        await this.page.goto("https://www.redmine.org/projects/redmine/roadmap");
     }
 }

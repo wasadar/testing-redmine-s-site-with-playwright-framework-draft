@@ -11,6 +11,6 @@ class ActivityPage {
     }
 
     async gotoActivityPage() {
-        await this.page.goto("http://www.redmine.org/projects/redmine/activity");
+        await this.page.goto("https://www.redmine.org/projects/redmine/activity");
     }
 }
