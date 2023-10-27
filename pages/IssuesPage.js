@@ -19,6 +19,6 @@ class IssuesPage {
     }
 
     async gotoIssuesPage() {
-        await this.page.goto("https://www.redmine.org/projects/redmine/issues", { ignoreHTTPSErrors: true });
+        await this.page.goto("https://www.redmine.org/projects/redmine/issues", { ignoreHTTPSErrors: true, args: ["--ignore-certificate-errors"] });
     }
 }

@@ -11,6 +11,6 @@ class ActivityPage {
     }
 
     async gotoActivityPage() {
-        await this.page.goto("https://www.redmine.org/projects/redmine/activity", { ignoreHTTPSErrors: true });
+        await this.page.goto("https://www.redmine.org/projects/redmine/activity", { ignoreHTTPSErrors: true, args: ["--ignore-certificate-errors"] });
     }
 }
