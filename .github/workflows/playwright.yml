@@ -23,11 +23,16 @@ jobs:
         java-version: 8
         distribution: 'adopt'
 
+    - name: Install Dependencies
+      run: npm ci
+
     - name: Install Playwright Browsers
       run: npx playwright install
 
-    - name: Install Dependencies
-      run: npm ci
+    - name: Install Dependencies Browsers
+      run:
+        - sudo apt-get update
+        - sudo apt-get install -y libsoup2.4-1 libwoff2dec1 libvpx6 libevent-2.1-7 libopus0 libharfbuzz-icu0 libgstreamer-plugins-base1.0-0 libflite1 libx264-152 libgles2
 
     - name: Run Playwright tests
       run: npm test
