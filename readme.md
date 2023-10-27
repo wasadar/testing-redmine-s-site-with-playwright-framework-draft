@@ -21,7 +21,7 @@ Most of the dependencies can be downloaded throught using this command after clo
     ```
     npm install
     ```
-But some of them including: Node.js, Java, Playwright browsers and their dependencies - can not.
+But some of them including: Node.js, Java, Playwright browsers - can not.
 
 Please make sure you have the necessary dependencies installed and the environment properly configured before running the tests. You can customize the tests in the [tests](tests) directory and configure the Playwright options in the [config](playwright.config.js) file as needed.
 
@@ -74,7 +74,7 @@ Please make sure you have the necessary dependencies installed and the environme
 6. Install Playwright browsers for Windows:
     - To install the Playwright browsers for Windows, you can use the following command in the project directory:
     ```
-    npx playwright install
+    npx playwright install --with-deps
     ```
     - This will install the necessary browsers (Chromium, Firefox, and WebKit) for your tests on Windows.
 ### For Linux
@@ -123,14 +123,9 @@ Please make sure you have the necessary dependencies installed and the environme
 6. Install Playwright browsers for Linux:
     - To install the Playwright browsers for Linux, you can use the following command in the project directory:
     ```
-    npx playwright install
+    npx playwright install --with-deps
     ```
     - This will install the necessary browsers (Chromium, Firefox, and WebKit) for your tests on Linux.
-
-7. Install Playwright browsers dependencies.
-    ```
-    sudo apt-get install -y libsoup2.4-1 libwoff2dec1 libvpx6 libevent-2.1-7 libopus0 libharfbuzz-icu0 libgstreamer-plugins-base1.0-0 libflite1 libx264-152 libgles2
-    ```
 
 ## Usage
 ### Running Tests

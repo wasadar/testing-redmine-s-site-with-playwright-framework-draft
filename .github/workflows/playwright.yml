@@ -1,60 +1,68 @@
-name: Playwright Tests
+name: Playwright Tests with Allure Report
 
 on:
   push:
-    branches:
-      - main
-      - master
+    branches: [main, master]
   pull_request:
-    branches:
-      - main
-      - master
+    branches: [main, master]
 
 jobs:
   test:
-    timeout-minutes: 60
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: 20.9.0
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: 18
 
-      - name: Setup Java
-        uses: actions/setup-java@v2
-        with:
-          java-version: 8
-          distribution: 'adopt'
+    - name: Install Java
+      run: |
+        sudo apt-get update
+        sudo apt-get install openjdk-8-jre
+        echo "JAVA_HOME=$(which java)" >> $GITHUB_ENV
 
-      - name: Install Dependencies
-        run: npm ci
+    - name: Install dependencies
+      run: npm ci
 
-      - name: Install Playwright Browsers
-        run: npx playwright install
+    - name: Install Playwright Browsers
+      run: npx playwright install --with-deps
 
-      - name: Install Dependencies Browsers
-        run: sudo apt-get install -y libsoup2.4-1 libwoff2dec1 libvpx6 libevent-2.1-7 libopus0 libharfbuzz-icu0 libgstreamer-plugins-base1.0-0 libflite1 libx264-152 libgles2
+    - name: Run Playwright tests
+      run: npm run test
 
-      - name: Run Playwright tests
-        run: npm test
+    - name: Generate Allure report
+      run: npm run generate-allure-report
 
-      - name: Generate Allure report
-        run: npm run generate-allure-report
-        continue-on-error: true
+    - name: Commit and push Allure report
+      run: |
+        git config --global user.email "actions@github.com"
+        git config --global user.name "GitHub Actions"
+        git clone https://github.com/${{ github.repository }}.git allure-report
+        cd allure-report
+        git checkout --orphan allure-report
+        git reset --hard
+        cp -r ../playwright-report/* .
+        git add .
+        git commit -m "Add Allure report"
+        git branch -M allure-report
+        git push -f https://github.com/${{ github.repository }}.git allure-report
 
-      - name: Upload Allure report
-        uses: actions/upload-artifact@v2
-        with:
-          name: allure-results
-          path: playwright-report/
-          retention-days: 30
+    - name: Set up GitHub Pages
+      run: |
+        git checkout main
+        git submodule add -b allure-report https://github.com/${{ github.repository }}.git allure-report docs
+        git commit -am "Add GitHub Pages submodule"
+        git push
 
-      - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@4.1.4
-        with:
-          ACCESS_TOKEN: ${{ secrets.TOKEN }}
-          BRANCH: gh-pages
-          FOLDER: report
+    - name: Update GitHub Pages description
+      run: |
+        DESC=$(cat README.md)
+        DESC="$DESC\n\n[View the Allure report](https://${{ github.repository }}/allure-report/)"
+        echo -e "$DESC" > README.md
+        git add README.md
+        git commit -m "Update README with Allure report link"
+        git push
